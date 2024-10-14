@@ -12,16 +12,21 @@ public class PizzaGUIFrame extends JFrame {
 
     public PizzaGUIFrame() {
         setTitle("Pizza Order");
-        setSize(700, 500);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(1, 2));
+        setLayout(new BorderLayout());
 
         JPanel pizzaOrderPanel = CreatePizzaOrderPanel();
-        add(pizzaOrderPanel);
+        add(pizzaOrderPanel, BorderLayout.CENTER);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
         JPanel printReceiptPanel = CreatePrintReceiptPanel();
-        add(printReceiptPanel);
+        bottomPanel.add(printReceiptPanel);
+        JPanel buttonsPanel = CreateButtonsPanel();
+        bottomPanel.add(buttonsPanel);
 
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private JPanel CreateButtonsPanel() {
@@ -100,28 +105,26 @@ public class PizzaGUIFrame extends JFrame {
 
     private JPanel CreatePizzaOrderPanel() {
         JPanel pizzaOrderPanel = new JPanel();
-        pizzaOrderPanel.setLayout(new BoxLayout(pizzaOrderPanel, BoxLayout.Y_AXIS));
-
-        // Create a JPanel with a button group for the crust size
-        JPanel crustPanel = createCrustPanel();
-        pizzaOrderPanel.add(crustPanel);
+        pizzaOrderPanel.setLayout(new GridLayout(1, 3));
 
         // Create a JPanel with a JComboBox for the size
         JPanel sizePanel = createSizePanel();
         pizzaOrderPanel.add(sizePanel);
 
+        // Create a JPanel with a button group for the crust size
+        JPanel crustPanel = createCrustPanel();
+        pizzaOrderPanel.add(crustPanel);
+
         // Create a JPanel with a JCheckBox for each topping
         JPanel toppingPanel = createToppingPanel();
         pizzaOrderPanel.add(toppingPanel);
-
-        JPanel buttonsPanel = CreateButtonsPanel();
-        pizzaOrderPanel.add(buttonsPanel);
 
         return pizzaOrderPanel;
     }
 
     private JPanel createToppingPanel() {
         JPanel toppingPanel = new JPanel();
+        toppingPanel.setLayout(new BoxLayout(toppingPanel, BoxLayout.Y_AXIS));
         toppingPanel.setBorder(BorderFactory.createTitledBorder("Toppings"));
 
         JCheckBox batWings = new PizzaTopping("Bat Wings");
@@ -153,6 +156,7 @@ public class PizzaGUIFrame extends JFrame {
 
     private JPanel createSizePanel() {
         JPanel sizePanel = new JPanel();
+        sizePanel.setLayout(new BoxLayout(sizePanel, BoxLayout.Y_AXIS));
         sizePanel.setBorder(BorderFactory.createTitledBorder("Size"));
 
         sizeBox = new JComboBox<>();
@@ -167,6 +171,7 @@ public class PizzaGUIFrame extends JFrame {
 
     private JPanel createCrustPanel() {
         JPanel crustPanel = new JPanel();
+        crustPanel.setLayout(new BoxLayout(crustPanel, BoxLayout.Y_AXIS));
         crustPanel.setBorder(BorderFactory.createTitledBorder("Crust"));
 
         crustGroup = new ButtonGroup();
